@@ -5,7 +5,7 @@ env:
   GH_TOKEN: "${{github.token}}"
   Branch: "${{github.ref_name}}"
   Artifacts: "Gears/bin"
-  Extension: "*.asi"
+  Extension: "*"
   Title: "${{github.event.repository.name}}"
   Solution: "Gears.sln"
 
@@ -70,8 +70,14 @@ jobs:
         /p:PlatformToolset=v143
         /p:Platform="${{matrix.Settings.Platform}}"
         /p:IncludePath="C:\vcpkg\installed\${{matrix.Settings.Triplet}}\include"
-        /p:AdditionalDependencies=C:\vcpkg\installed\${{matrix.Settings.Triplet}}\lib\libcurl.lib
         /p:PostBuildEventUseInBuild=false
+
+    - name: Deploy
+      shell: cmd
+      run: |
+        mkdir "Release\ManualTransmission"
+        move "${{env.Artifacts}}\${{env.Extension}}" "Release\"
+        move "WheelSetup\bin\WheelSetup.exe" "Release\ManualTransmission\"
 
     - name: List files
       run: Get-ChildItem -Path "." -File -Recurse | Select-Object FullName
@@ -80,9 +86,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{env.Title}}-${{matrix.Settings.Name}}-${{matrix.Configuration}}
-        path: |
-          "${{env.Artifacts}}/${{env.Extension}}"
-          "Gears\bin\WheelSetup.exe"
+        path: "Release"
 
   Release:
     name: Release
