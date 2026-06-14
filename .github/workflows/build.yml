@@ -74,6 +74,10 @@ jobs:
         /p:AdditionalDependencies=C:\vcpkg\installed\${{matrix.Settings.Triplet}}\lib\libcurl.lib
         /p:PostBuildEventUseInBuild=false
 
+    - name: Deploy
+      run: |
+        mv "WheelSetup\bin\WheelSetup.exe" "${{github.workspace}}/${{env.Artifacts}}/"
+
     - name: List files
       run: Get-ChildItem -Path "." -File -Recurse | Select-Object FullName
 
