@@ -80,8 +80,8 @@ jobs:
       with:
         name: ${{env.Title}}-${{matrix.Settings.Name}}-${{matrix.Configuration}}
         path: |
-          "WheelSetup/bin/WheelSetup.exe"
-          "Gears/bin/Gears.asi"
+          "WheelSetup\bin\WheelSetup.exe"
+          "Gears\bin\Gears.asi"
 
   Release:
     name: Release
