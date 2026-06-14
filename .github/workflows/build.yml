@@ -9,7 +9,6 @@ env:
   Title: "${{github.event.repository.name}}"
   Solution: "Gears.sln"
 
-
 on:
   push:
     Branches: "$Branch"
@@ -74,10 +73,6 @@ jobs:
         /p:AdditionalDependencies=C:\vcpkg\installed\${{matrix.Settings.Triplet}}\lib\libcurl.lib
         /p:PostBuildEventUseInBuild=false
 
-    - name: Deploy
-      run: |
-        mv "Gears\bin\WheelSetup.exe" "${{github.workspace}}/${{env.Artifacts}}/"
-
     - name: List files
       run: Get-ChildItem -Path "." -File -Recurse | Select-Object FullName
 
@@ -85,7 +80,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{env.Title}}-${{matrix.Settings.Name}}-${{matrix.Configuration}}
-        path: "${{github.workspace}}/${{env.Artifacts}}/${{env.Extension}}"
+        path: |
+          "${{env.Artifacts}}/${{env.Extension}}"
+          "Gears\bin\WheelSetup.exe"
 
   Release:
     name: Release
