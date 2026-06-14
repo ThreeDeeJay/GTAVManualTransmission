@@ -94,7 +94,7 @@ jobs:
       - name: Deploy
         run: |
           mv "stage/ManualTransmission" "Release/ManualTransmission"
-          mkdir "Release/Docs"
+          mkdir "Release/ManualTransmission/Docs"
           mv "doc/README.md" "Release/ManualTransmission/Docs/ReadMe.txt"
           mv "Licenses/DashboardIcons.LICENSE" "Release/ManualTransmission/Docs/License-DashboardIcons.txt"
           mv "Licenses/ScriptHookVDotNet.LICENSE" "Release/ManualTransmission/Docs/License-ScriptHookVDotNet.txt"
