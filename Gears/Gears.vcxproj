@@ -331,7 +331,7 @@
     <ClInclude Include="WheelInput.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include=".\libcurl.lib" />
+    <Library Include="C:\vcpkg\installed\x64-windows\lib\libcurl.lib" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Gears.rc" />
