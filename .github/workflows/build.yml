@@ -28,7 +28,8 @@ jobs:
         - {
             Name: "Win64",
             Platform: "x64",
-            Architecture: "x64"
+            Architecture: "x64",
+            Triplet: "x64-windows"
           }
 
     steps:
@@ -41,6 +42,19 @@ jobs:
         --branch ${{env.Branch}}
         --recurse-submodules
         --depth 1
+
+    - name: Cache vcpkg
+      uses: actions/cache@v5
+      id: cache_vcpkg
+      with:
+        path: C:/vcpkg/installed
+        key: vcpkg
+    - name: vcpkg
+      if: steps.cache_vcpkg.outputs.cache-hit != 'true'
+      run: |
+        vcpkg install curl --triplet ${{matrix.Settings.Triplet}}
+    - name: List vcpkg files
+      run: Get-ChildItem -Path "C:\vcpkg" -File -Recurse | Select-Object FullName
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.2
