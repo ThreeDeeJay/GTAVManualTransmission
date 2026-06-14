@@ -75,9 +75,9 @@ jobs:
     - name: Deploy
       shell: cmd
       run: |
-        mkdir "Release\ManualTransmission"
+        mkdir "Release"
         move "${{env.Artifacts}}\${{env.Extension}}" "Release\"
-        move "WheelSetup\bin\WheelSetup.exe" "Release\ManualTransmission\"
+        move "WheelSetup\bin\WheelSetup.exe" "Release\"
 
     - name: List files
       run: Get-ChildItem -Path "." -File -Recurse | Select-Object FullName
@@ -110,16 +110,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{env.Title}}-Win64-Release
-          path: Release/
+          path: stage/
 
       - name: Deploy
         shell: cmd
         run: |
-          move "stage/ManualTransmission" "Release/"
-          mkdir "Release/ManualTransmission/Docs"
-          move "doc/README.md" "Release/ManualTransmission/Docs/ReadMe.txt"
-          move "Licenses/DashboardIcons.LICENSE" "Release/ManualTransmission/Docs/License-DashboardIcons.txt"
-          move "Licenses/ScriptHookVDotNet.LICENSE" "Release/ManualTransmission/Docs/License-ScriptHookVDotNet.txt"
+          mv "stage" "Release"
+          mv "Release\WheelSetup.exe" "Release\ManualTransmission\"
+          mkdir "Release\ManualTransmission\Docs"
+          mv "doc\README.md" "Release\ManualTransmission\Docs\ReadMe.txt"
+          mv "Licenses\DashboardIcons.LICENSE" "Release\ManualTransmission\Docs\License-DashboardIcons.txt"
+          mv "Licenses\ScriptHookVDotNet.LICENSE" "Release\ManualTransmission\Docs\License-ScriptHookVDotNet.txt"
   
       - name: Compress artifacts
         run: |
