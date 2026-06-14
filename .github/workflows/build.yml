@@ -72,6 +72,13 @@ jobs:
         /p:IncludePath="C:\vcpkg\installed\${{matrix.Settings.Triplet}}\include"
         /p:PostBuildEventUseInBuild=false
 
+    - name: Deploy
+      shell: cmd
+      run: |
+        mkdir "Release"
+        move "${{env.Artifacts}}\${{env.Extension}}" "Release\"
+        move "WheelSetup\bin\WheelSetup.exe" "Release\"
+
     - name: List files
       run: Get-ChildItem -Path "." -File -Recurse | Select-Object FullName
 
@@ -79,9 +86,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{env.Title}}-${{matrix.Settings.Name}}-${{matrix.Configuration}}
-        path: |
-          "${{env.Artifacts}}\${{env.Extension}}"
-          "WheelSetup\bin\WheelSetup.exe"
+        path: "Release"
 
   Release:
     name: Release
