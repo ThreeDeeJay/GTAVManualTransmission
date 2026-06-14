@@ -113,7 +113,6 @@ jobs:
           path: stage/
 
       - name: Deploy
-        shell: cmd
         run: |
           mv "stage" "Release"
           mv "Release\WheelSetup.exe" "Release\ManualTransmission\"
