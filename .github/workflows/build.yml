@@ -76,7 +76,7 @@ jobs:
 
     - name: Deploy
       run: |
-        mv "WheelSetup\bin\WheelSetup.exe" "${{github.workspace}}/${{env.Artifacts}}/"
+        mv "Gears\bin\WheelSetup.exe" "${{github.workspace}}/${{env.Artifacts}}/"
 
     - name: List files
       run: Get-ChildItem -Path "." -File -Recurse | Select-Object FullName
