@@ -331,7 +331,7 @@
     <ClInclude Include="WheelInput.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\thirdparty\curl\libcurl.lib" />
+    <Library Include="libcurl.lib" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Gears.rc" />
